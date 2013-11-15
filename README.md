@@ -99,6 +99,31 @@ grid: {
 
 Thanks to ChrisRaven for the metadata support, resizable columns, and cell click events..
 
+If you need to manipulate your data to produce the value then you can use the display function.
+
+````JavaScript
+{data: "My Node", metadata: {price: "$10", discountInPercent: "20"}}
+grid: {
+	columns: [
+		{width: 50, header: "Nodes"},
+		{width: 30, header: "Price", value: "price",source:"metadata"},
+		{width: 30, header: "Discount", display : function(node){
+			// node.attr() for attribute
+			// node.data() for metadata
+			var md = node.data();
+			return (md.price / 100 ) * md.discountInPercent;
+		}},
+		{width: 30, header: "Amount", display : function(node){
+			// node.attr() for attribute
+			// node.data() for metadata
+			var md = node.data();
+			var discount =  (md.price / 100 ) * md.discountInPercent;
+			return md.price - discount;
+		}}
+	]
+}
+````
+
 ValueClass is the name of the attribute that will be added as a class to this cell. Thus, if you have a node whose data is given by:
 
 ````JavaScript

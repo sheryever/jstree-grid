@@ -237,6 +237,13 @@
 							if (s === "attr") { val = col.value && t.attr(col.value) ? t.attr(col.value) : "";
 							} else if (s === "metadata") { val = col.value && t.data(col.value) ? t.data(col.value) : ""; }
 
+							// get the content of the cell from display function
+							if (col.display) {
+								var result = col.display(t);
+								if (result) val = result;
+								else val = "";
+							}
+								
 							// put images instead of text if needed
 							if (col.images) {
 							img = col.images[val] || col.images["default"];
